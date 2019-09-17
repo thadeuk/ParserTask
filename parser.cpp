@@ -62,7 +62,7 @@ unique_ptr<ASTNode> Parser::expr()
     {
         char value = this->currentToken;
         nextToken();
-        node = make_unique<InternalNode>(std::move(node), term(), value);
+        node = unique_ptr<InternalNode>(new InternalNode(std::move(node), term(), value));
     }
     return node;
 }
@@ -74,7 +74,7 @@ unique_ptr<ASTNode> Parser::term()
     {
         char value = this->currentToken;
         nextToken();
-        node = make_unique<InternalNode>(move(node), term(), value);
+        node = unique_ptr<InternalNode>(new InternalNode(move(node), term(), value));
     }
     return node;
 }
@@ -84,7 +84,7 @@ unique_ptr<ASTNode> Parser::factor()
     if (getCurrentTokenType() == TokenType::number) {
         char value = this->currentToken;
         nextToken();
-        return make_unique<LeafNode>(value);
+        return unique_ptr<LeafNode>(new LeafNode(value));
     }
 
     nextToken();

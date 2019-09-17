@@ -1,5 +1,5 @@
 CC=clang++ 
-CFLAGS=-Wall -Wextra -g -std=c++14
+CFLAGS=-Wall -Wextra -g -std=c++11
 HEADERS = parser.h node.h interpreter.h
 OBJECTS = main.o parser.o node.o interpreter.o
 
