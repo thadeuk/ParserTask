@@ -18,24 +18,26 @@ public:
 
 class InternalNode : public ASTNode
 {
-private:
-    std::unique_ptr<ASTNode> leftNode;
-    std::unique_ptr<ASTNode> rightNode;
-    char value;
 public:
     InternalNode(std::unique_ptr<ASTNode> _left, std::unique_ptr<ASTNode> _right, char _value): leftNode(std::move(_left)), rightNode(std::move(_right)), value(_value) {};
     virtual void print() const;
     virtual double evaluate();
+
+private:
+    std::unique_ptr<ASTNode> leftNode;
+    std::unique_ptr<ASTNode> rightNode;
+    char value;
 };
 
 class LeafNode : public ASTNode
 {
-private:
-    uint8_t value;
 public:
     LeafNode (uint8_t _value) : value(_value) {};
     LeafNode (char _value) : value(_value-'0') {};
     virtual void print() const;
     virtual double evaluate();
+
+private:
+    uint8_t value;
 };
 

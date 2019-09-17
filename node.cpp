@@ -13,10 +13,6 @@ void InternalNode::print() const {
     rightNode->print();
 }
 
-void LeafNode::print() const {
-    cout << (int)value << " " ;
-}
-
 double InternalNode::evaluate() {
     if (value == '+')
         return leftNode->evaluate() + rightNode->evaluate(); 
@@ -26,6 +22,12 @@ double InternalNode::evaluate() {
         return leftNode->evaluate() / rightNode->evaluate(); 
     else
         return leftNode->evaluate() * rightNode->evaluate(); 
+}
+
+/******************************************************************/
+
+void LeafNode::print() const {
+    cout << (int)value << " " ;
 }
 
 double LeafNode::evaluate() {

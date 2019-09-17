@@ -10,6 +10,22 @@
 
 using namespace std;
 
+void Parser::nextToken()
+{
+    cin.get(this->currentToken);
+
+    // Ignore spaces and tabs.
+    while (this->currentToken == ' '
+            || this->currentToken == '\t')
+        cin.get(this->currentToken);
+}
+
+unique_ptr<ASTNode> Parser::parse()
+{
+    nextToken();
+    return expr();
+}
+
 TokenType Parser::getCurrentTokenType()
 {
     if (this->currentToken == '(')
@@ -37,22 +53,6 @@ void Parser::assertTokenType(TokenType tokenType)
         cout << "Could not parse expression"; 
         error = true;
     }
-}
-
-void Parser::nextToken()
-{
-    cin.get(this->currentToken);
-
-    // Ignore spaces and tabs.
-    while (this->currentToken == ' '
-            || this->currentToken == '\t')
-        cin.get(this->currentToken);
-}
-
-unique_ptr<ASTNode> Parser::parse()
-{
-    nextToken();
-    return expr();
 }
 
 unique_ptr<ASTNode> Parser::expr()
@@ -97,6 +97,3 @@ unique_ptr<ASTNode> Parser::factor()
 
     return node;
 }
-
-
-
