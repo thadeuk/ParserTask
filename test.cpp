@@ -1,18 +1,25 @@
 #include <iostream>
-#include "parser.h"
+#include "interpreter.h"
 
 using namespace std;
+
+template <typename T>
+bool AssertEqual(T expected, T result) {
+    if (expected == result)
+        return true;
+    return false;
+}
+
+bool ShouldCalculate()
+{
+    Interpreter interpreter;
+    double result = interpreter.execute("1+2+3+4");
+    AssertEqual((double)10, result);
+}
 
 int
 main()
 {
-    Parser parser;
-    unique_ptr<ASTNode> node = parser.parse();
-    cout << "end of parsing... Printing..." << endl;
-    if (!parser.error) 
-    {
-        node->print();
-        cout << "end of printing... Evaluating..." << endl;
-        cout << node->evaluate() << endl;
-    }
+    ShouldCalculate();
+    
 }

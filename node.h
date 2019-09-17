@@ -7,6 +7,8 @@
 #include <iostream>
 #include <memory>
 
+using namespace std;
+
 class ASTNode
 {
 public:
@@ -14,30 +16,30 @@ public:
     virtual ~ASTNode() {};
     virtual void print() const = 0;
     virtual double evaluate() = 0;
+
+protected:
+    unique_ptr<ASTNode> leftNode;
+    unique_ptr<ASTNode> rightNode;
+    char value;
 };
 
 class InternalNode : public ASTNode
 {
 public:
-    InternalNode(std::unique_ptr<ASTNode> _left, std::unique_ptr<ASTNode> _right, char _value): leftNode(std::move(_left)), rightNode(std::move(_right)), value(_value) {};
+    InternalNode(unique_ptr<ASTNode> _left, unique_ptr<ASTNode> _right, char _value);
     virtual void print() const;
     virtual double evaluate();
 
 private:
-    std::unique_ptr<ASTNode> leftNode;
-    std::unique_ptr<ASTNode> rightNode;
-    char value;
 };
 
 class LeafNode : public ASTNode
 {
 public:
-    LeafNode (uint8_t _value) : value(_value) {};
-    LeafNode (char _value) : value(_value-'0') {};
+    LeafNode (char _value);
     virtual void print() const;
     virtual double evaluate();
 
 private:
-    uint8_t value;
 };
 

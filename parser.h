@@ -25,13 +25,18 @@ class Parser
 {
 public:
     bool error;
+
+    Parser(string expression);
     std::unique_ptr<ASTNode> parse();
     void nextToken();
 
 private:
+    string expression;
     char currentToken;
+    int currentTokenIdx;
 
     TokenType getCurrentTokenType();
+    void updateCurrentToken();
     void assertTokenType(TokenType);
 
     std::unique_ptr<ASTNode> expr();

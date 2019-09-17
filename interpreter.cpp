@@ -10,15 +10,22 @@
 
 using namespace std;
 
-void Interpreter::interprete()
+double Interpreter::execute(string expression)
 {
-    Parser parser;
+    Parser parser(expression);
+    cout << "Parsing..." << endl;
     unique_ptr<ASTNode> node = parser.parse();
-    cout << "end of parsing... Printing..." << endl;
     if (!parser.error) 
     {
+        cout << "Printing..." << endl;
         node->print();
-        cout << "end of printing... Evaluating..." << endl;
-        cout << node->evaluate() << endl;
+        cout << "Evaluating..." << endl;
+        double result = node->evaluate();
+        cout << result << endl;
+        return result;
+    }
+    else {
+        cout << "Could not parse expression" << endl;
+        return 0;
     }
 }

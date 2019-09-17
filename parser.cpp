@@ -10,14 +10,23 @@
 
 using namespace std;
 
+Parser::Parser(string expression)
+{
+   this->expression = expression; 
+   this->currentTokenIdx = -1;
+}
+
 void Parser::nextToken()
 {
-    cin.get(this->currentToken);
+    this->currentTokenIdx++;
+    updateCurrentToken();
 
     // Ignore spaces and tabs.
     while (this->currentToken == ' '
-            || this->currentToken == '\t')
-        cin.get(this->currentToken);
+            || this->currentToken == '\t') {
+        this->currentTokenIdx++;
+        updateCurrentToken();
+    }
 }
 
 unique_ptr<ASTNode> Parser::parse()
@@ -44,6 +53,13 @@ TokenType Parser::getCurrentTokenType()
         return TokenType::multDivOperator;
 
     return TokenType::undefined;
+}
+
+void Parser::updateCurrentToken()
+{
+    if (static_cast<size_t>(this->currentTokenIdx) < this->expression.size()) {
+        this->currentToken = this->expression[this->currentTokenIdx];
+    }
 }
 
 void Parser::assertTokenType(TokenType tokenType)

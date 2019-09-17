@@ -4,8 +4,10 @@
  * Expression interpetrer.
  */
 
+#include <iostream>
+
 class Interpreter
 {
 public:
-    void interprete();
+    double execute(std::string expression);
 };

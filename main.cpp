@@ -7,5 +7,9 @@ int
 main()
 {
     Interpreter interpreter;
-    interpreter.interprete();
+    string expression;
+    while (getline(cin, expression))
+    {
+        interpreter.execute(expression);
+    }
 }
