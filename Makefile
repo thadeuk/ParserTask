@@ -23,4 +23,4 @@ clean:
 
 test: compileTest
 	./tester
-
+	@rm -f tester
