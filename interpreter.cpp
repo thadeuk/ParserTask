@@ -13,15 +13,11 @@ using namespace std;
 double Interpreter::execute(string expression)
 {
     Parser parser(expression);
-    cout << "Parsing..." << endl;
     unique_ptr<ASTNode> node = parser.parse();
     if (!parser.error) 
     {
-        cout << "Printing..." << endl;
-        node->print();
-        cout << "Evaluating..." << endl;
+        node->prettyPrint();
         double result = node->evaluate();
-        cout << result << endl;
         return result;
     }
     else {

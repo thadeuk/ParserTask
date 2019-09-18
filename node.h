@@ -14,32 +14,37 @@ class ASTNode
 public:
     ASTNode() {};
     virtual ~ASTNode() {};
-    virtual void print() const = 0;
     virtual double evaluate() = 0;
-
+    void prettyPrint();
+    
 protected:
+    virtual void print() const = 0;
     unique_ptr<ASTNode> leftNode;
     unique_ptr<ASTNode> rightNode;
     char value;
+
+private:
+    int getHeight();
+    void printFloor(int floor, int height);
 };
 
 class InternalNode : public ASTNode
 {
 public:
     InternalNode(unique_ptr<ASTNode> _left, unique_ptr<ASTNode> _right, char _value);
-    virtual void print() const;
     virtual double evaluate();
 
 private:
+    void print() const;
 };
 
 class LeafNode : public ASTNode
 {
 public:
     LeafNode (char _value);
-    virtual void print() const;
     virtual double evaluate();
 
 private:
+    void print() const;
 };
 

@@ -10,6 +10,6 @@ main()
     string expression;
     while (getline(cin, expression))
     {
-        interpreter.execute(expression);
+        cout << interpreter.execute(expression) << endl;
     }
 }

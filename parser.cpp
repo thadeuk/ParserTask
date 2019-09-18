@@ -66,7 +66,7 @@ void Parser::assertTokenType(TokenType tokenType)
 {
     if (this->getCurrentTokenType() != tokenType)
     {
-        cout << "Could not parse expression"; 
+        cout << "Could not parse expression" << endl; 
         error = true;
     }
 }

@@ -3,7 +3,7 @@
  * @date 2019
  * Expression interpetrer.
  */
-
+#pragma once
 #include <iostream>
 
 class Interpreter

@@ -7,6 +7,39 @@
 
 using namespace std;
 
+int ASTNode::getHeight() {
+    if (leftNode == NULL && rightNode == NULL)
+        return 1;
+    if (leftNode == NULL)
+        return 1 + rightNode->getHeight();
+    if (rightNode == NULL)
+        return 1 + leftNode->getHeight();
+
+    return 1 + max(leftNode->getHeight(), rightNode->getHeight());
+}
+
+void ASTNode::printFloor(int floor, int height) {
+    if (floor == 0) {
+        for (int i = 0; i < height; i++)
+            cout << "\t";
+        print();
+    }
+
+    if (leftNode != NULL)
+        leftNode->printFloor(floor-1, height);
+    if (rightNode != NULL)
+        rightNode->printFloor(floor-1, height);
+}
+
+void ASTNode::prettyPrint() {
+    int height = getHeight();
+    for (int i = 0; i < height; i++) {
+        printFloor(i, height-i);
+        cout << endl;
+    }
+}
+
+/******************************************************************/
 InternalNode::InternalNode(unique_ptr<ASTNode> _left, unique_ptr<ASTNode> _right, char _value) {
     this->leftNode = move(_left);
     this->rightNode = move(_right);
@@ -14,9 +47,7 @@ InternalNode::InternalNode(unique_ptr<ASTNode> _left, unique_ptr<ASTNode> _right
 }
 
 void InternalNode::print() const { 
-    cout << value << endl;
-    leftNode->print();
-    rightNode->print();
+    cout << value;
 }
 
 double InternalNode::evaluate() {
@@ -37,7 +68,7 @@ LeafNode::LeafNode(char _value) {
 }
 
 void LeafNode::print() const {
-    cout << (int)value << endl ;
+    cout << (int)value;
 }
 
 double LeafNode::evaluate() {
