@@ -9,11 +9,11 @@
 using namespace std;
 
 int ASTNode::getHeight() {
-    if (leftNode == NULL && rightNode == NULL)
+    if (leftNode == nullptr && rightNode == nullptr)
         return 1;
-    if (leftNode == NULL)
+    if (leftNode == nullptr)
         return 1 + rightNode->getHeight();
-    if (rightNode == NULL)
+    if (rightNode == nullptr)
         return 1 + leftNode->getHeight();
 
     return 1 + max(leftNode->getHeight(), rightNode->getHeight());
@@ -27,14 +27,14 @@ void ASTNode::printFloor(int floor, int indent) {
         return;
     }
 
-    if (leftNode != NULL)
+    if (leftNode != nullptr)
         leftNode->printFloor(floor-1, indent);
     else {
         for (int i = 0; i < indent; i++)
             cout << "\t";
     }
         
-    if (rightNode != NULL) {
+    if (rightNode != nullptr) {
         rightNode->printFloor(floor-1, indent);
     }
     else {

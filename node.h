@@ -23,7 +23,6 @@ public:
 protected:
     unique_ptr<ASTNode> leftNode;
     unique_ptr<ASTNode> rightNode;
-    char value;
 
     // Print node value
     virtual void print() const = 0;
@@ -38,19 +37,21 @@ class InternalNode : public ASTNode
 {
 public:
     InternalNode(unique_ptr<ASTNode> _left, unique_ptr<ASTNode> _right, char _value);
-    virtual int evaluate();
+    int evaluate() override;
+    char value;
 
 private:
-    void print() const;
+    void print() const override;
 };
 
 class LeafNode : public ASTNode
 {
 public:
     LeafNode (char _value);
-    virtual int evaluate();
+    int evaluate() override;
+    int value;
 
 private:
-    void print() const;
+    void print() const override;
 };
 

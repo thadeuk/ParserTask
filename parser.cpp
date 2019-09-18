@@ -10,9 +10,8 @@
 
 using namespace std;
 
-Parser::Parser(string expression)
+Parser::Parser(const string& _expression) : expression(_expression)
 {
-   this->expression = expression; 
    this->currentTokenIdx = -1;
 }
 
@@ -22,27 +21,25 @@ unique_ptr<ASTNode> Parser::parse()
     unique_ptr<ASTNode> node = expr();
 
     // Error if parser could not read to the end of expression
-    if (static_cast<size_t>(currentTokenIdx) != this->expression.size())
-        this->_error = true;
+    if (static_cast<size_t>(currentTokenIdx) != this->expression.size()) {
+       throw invalid_argument("Could not parse expression to the end.");
+    }
     return node;
 }
 
 void Parser::nextToken()
 {
     this->currentTokenIdx++;
-    updateCurrentToken();
+    if (static_cast<size_t>(currentTokenIdx) != this->expression.size())
+        this->currentToken = this->expression.at(this->currentTokenIdx);
 
     // Ignore spaces and tabs.
     while (this->currentToken == ' '
             || this->currentToken == '\t') {
         this->currentTokenIdx++;
-        updateCurrentToken();
+        if (static_cast<size_t>(currentTokenIdx) != this->expression.size())
+            this->currentToken = this->expression.at(this->currentTokenIdx);
     }
-}
-
-bool Parser::error()
-{
-    return this->_error;
 }
 
 TokenType Parser::getCurrentTokenType()
@@ -65,18 +62,11 @@ TokenType Parser::getCurrentTokenType()
     return TokenType::undefined;
 }
 
-void Parser::updateCurrentToken()
-{
-    if (static_cast<size_t>(this->currentTokenIdx) < this->expression.size()) {
-        this->currentToken = this->expression[this->currentTokenIdx];
-    }
-}
-
 void Parser::assertTokenType(TokenType tokenType)
 {
     if (this->getCurrentTokenType() != tokenType)
     {
-        this->_error = true;
+        throw invalid_argument("unexpected token.");
     }
 }
 

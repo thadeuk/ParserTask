@@ -14,14 +14,13 @@ main(int argc, char **argv)
         verbose = true;
 
     Interpreter interpreter(verbose);
-
     string expression;
     while (getline(cin, expression))
     {
-        InterpreterResult result = interpreter.execute(expression);
-        if (!result.error())
-            cout << result.value() << endl;
-        else
-            cout << "Could not parse expression" << endl;
+        try {
+            cout << interpreter.execute(expression) << endl;
+        } catch (const exception& e) {
+            cout << "Could not evaluate expression." << e.what() << endl;
+        }
     }
 }

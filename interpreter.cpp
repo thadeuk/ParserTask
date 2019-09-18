@@ -10,18 +10,13 @@
 
 using namespace std;
 
-InterpreterResult Interpreter::execute(string expression)
+int Interpreter::execute(const string& expression)
 {
     Parser parser(expression);
+
     unique_ptr<ASTNode> node = parser.parse();
-    if (!parser.error()) 
-    {
-        if (this->verbose)
-            node->prettyPrint();
-        double value = node->evaluate();
-        return InterpreterResult(value, false);
-    }
-    else {
-        return InterpreterResult(0, true);
-    }
+    if (this->verbose)
+        node->prettyPrint();
+    double value = node->evaluate();
+    return value;
 }

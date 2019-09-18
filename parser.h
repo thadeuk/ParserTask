@@ -26,27 +26,21 @@ class Parser
 {
 public:
     // Constructor with expression to be parsed.
-    Parser(string expression);
+    Parser(const string& expression);
     // Init parsing.
     std::unique_ptr<ASTNode> parse();
     // Put next token in the currentToken variable.
     void nextToken();
-    // Returns true when parse failed.
-    bool error();
 
 private:
-    // Flag parsing error.
-    bool _error;
     // Current string to be parsed.
-    string expression;
+    const string& expression;
     // Current token to be parsed.
     char currentToken;
     // Current token index related to expression string.
     int currentTokenIdx;
 
     TokenType getCurrentTokenType();
-    // Used by nextToken
-    void updateCurrentToken();
     // Prints error message and set error flag to true
     void assertTokenType(TokenType);
 
