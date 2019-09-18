@@ -8,7 +8,7 @@ make
 
 ./interpreter [**-v**]
 
-**-v** Display the AST tree of the running expression.
+**-v** Display the expression AST tree.
 
 ## Run tests
 
