@@ -15,9 +15,9 @@ class ASTNode
 public:
     ASTNode() {};
     virtual ~ASTNode() {};
+
     // Print AST tree
     void prettyPrint();
-
     virtual int evaluate() = 0;
     
 protected:

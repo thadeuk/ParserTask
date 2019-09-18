@@ -18,6 +18,10 @@ main(int argc, char **argv)
     string expression;
     while (getline(cin, expression))
     {
-        cout << interpreter.execute(expression) << endl;
+        InterpreterResult result = interpreter.execute(expression);
+        if (!result.error())
+            cout << result.value() << endl;
+        else
+            cout << "Could not parse expression" << endl;
     }
 }

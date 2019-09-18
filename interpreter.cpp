@@ -10,7 +10,7 @@
 
 using namespace std;
 
-double Interpreter::execute(string expression)
+InterpreterResult Interpreter::execute(string expression)
 {
     Parser parser(expression);
     unique_ptr<ASTNode> node = parser.parse();
@@ -18,11 +18,10 @@ double Interpreter::execute(string expression)
     {
         if (this->verbose)
             node->prettyPrint();
-        double result = node->evaluate();
-        return result;
+        double value = node->evaluate();
+        return InterpreterResult(value, false);
     }
     else {
-        cout << "Could not parse expression" << endl;
-        return 0;
+        return InterpreterResult(0, true);
     }
 }
