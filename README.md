@@ -1,12 +1,15 @@
 # ParserTask
-C++11 parser
+C++11 arithmetic parser.
+This is a project of an arithmetic parser that accepts positive numbers with one single digit and the basic operators as
+"+", "-", "*", "/", "(" and ")".
 
 ## Build and run
 make
 
-./interpreter (-v)
+./interpreter [**-v**]
 
--v is used to print the AST tree after parse.
+**-v** Display the expression AST tree.
+
 ## Run tests
 
 make test
