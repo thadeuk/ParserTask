@@ -17,7 +17,7 @@ compileTest: $(OBJECTS) $(MAINTEST)
 	$(CC) $(CFLAGS) $(OBJECTS) $(MAINTEST) -o tester
 
 clean:
-	rm -f $(OBJECTS)
+	rm -f $(OBJECTS) $(MAIN) $(MAINTEST)
 	rm -f interpreter
 	rm -f tester
 
