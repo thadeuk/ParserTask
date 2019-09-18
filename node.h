@@ -38,9 +38,9 @@ class InternalNode : public ASTNode
 public:
     InternalNode(unique_ptr<ASTNode> _left, unique_ptr<ASTNode> _right, char _value);
     int evaluate() override;
-    char value;
 
 private:
+    char value;
     void print() const override;
 };
 
@@ -49,9 +49,9 @@ class LeafNode : public ASTNode
 public:
     LeafNode (char _value);
     int evaluate() override;
-    int value;
 
 private:
+    int value;
     void print() const override;
 };
 
