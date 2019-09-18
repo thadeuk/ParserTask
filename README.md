@@ -1,9 +1,12 @@
 # ParserTask
 C++11 parser
 
-usage:
+## Build and run
 make
+
 ./interpreter (-v)
 
-run tests:
+-v is used to print the AST tree after parse.
+## Run tests
+
 make test
