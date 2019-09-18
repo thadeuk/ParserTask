@@ -20,7 +20,7 @@ main(int argc, char **argv)
         try {
             cout << interpreter.execute(expression) << endl;
         } catch (const exception& e) {
-            cout << "Could not evaluate expression." << e.what() << endl;
+            cout << "Could not evaluate expression." << endl;
         }
     }
 }

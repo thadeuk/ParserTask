@@ -21,7 +21,7 @@ unique_ptr<ASTNode> Parser::parse()
     unique_ptr<ASTNode> node = expr();
 
     // Error if parser could not read to the end of expression
-    if (static_cast<size_t>(currentTokenIdx) != this->expression.size()) {
+    if (static_cast<size_t>(currentTokenIdx) < this->expression.size()) {
        throw invalid_argument("Could not parse expression to the end.");
     }
     return node;
@@ -30,15 +30,17 @@ unique_ptr<ASTNode> Parser::parse()
 void Parser::nextToken()
 {
     this->currentTokenIdx++;
-    if (static_cast<size_t>(currentTokenIdx) != this->expression.size())
+    if (static_cast<size_t>(currentTokenIdx) < this->expression.size())
         this->currentToken = this->expression.at(this->currentTokenIdx);
 
     // Ignore spaces and tabs.
     while (this->currentToken == ' '
             || this->currentToken == '\t') {
         this->currentTokenIdx++;
-        if (static_cast<size_t>(currentTokenIdx) != this->expression.size())
-            this->currentToken = this->expression.at(this->currentTokenIdx);
+        if (static_cast<size_t>(currentTokenIdx) >= this->expression.size())
+            break;
+
+        this->currentToken = this->expression.at(this->currentTokenIdx);
     }
 }
 
