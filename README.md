@@ -1,5 +1,5 @@
 # ParserTask
-C++11 arithmetic parser.
+Arithmetic parser written in C++11.
 This is a project of an arithmetic parser that accepts positive numbers with one single digit and the basic operators as
 "+", "-", "*", "/", "(" and ")".
 
