@@ -1,7 +1,7 @@
 /**
  * @author Thadeu <thadeutucci@gmail.com>
  * @date 2019
- * Expression interpetrer.
+ * Expression interpreter.
  */
 
 #include "interpreter.h"
