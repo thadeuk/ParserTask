@@ -218,6 +218,12 @@ bool ShouldThrowOnInvalidInput()
 {
     Interpreter interpreter;
     try {
+        interpreter.execute(" ");
+        ASSERT_ERROR();
+    } catch(const std::exception& e)
+    { }
+
+    try {
         interpreter.execute("()");
         ASSERT_ERROR();
     } catch(const std::exception& e)
