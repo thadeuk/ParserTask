@@ -59,7 +59,7 @@ TokenType Parser::getCurrentTokenType()
     if (this->currentToken == '+' || this->currentToken == '-')
         return TokenType::plusMinusOperator;
 
-    if (this->currentToken == '/' || this->currentToken == '*')
+    if (this->currentToken == '*' || this->currentToken == '/')
         return TokenType::multDivOperator;
 
     return TokenType::undefined;
@@ -101,7 +101,7 @@ unique_ptr<ASTNode> Parser::term()
     {
         char value = this->currentToken;
         nextToken();
-        node = unique_ptr<InternalNode>(new InternalNode(move(node), term(), value));
+        node = unique_ptr<InternalNode>(new InternalNode(move(node), factor(), value));
     }
     return node;
 }
@@ -115,11 +115,8 @@ unique_ptr<ASTNode> Parser::factor()
     }
 
     assertTokenType(TokenType::leftParen);
+
     nextToken();
-
-    if (this->_error)
-        return NULL;
-
     unique_ptr<ASTNode> node = expr();
 
     assertTokenType(TokenType::rightParen);

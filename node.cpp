@@ -4,6 +4,7 @@
  * AST nodes.
  */
 #include "node.h"
+#include <cmath>
 
 using namespace std;
 
@@ -18,23 +19,34 @@ int ASTNode::getHeight() {
     return 1 + max(leftNode->getHeight(), rightNode->getHeight());
 }
 
-void ASTNode::printFloor(int floor, int height) {
+void ASTNode::printFloor(int floor, int indent) {
     if (floor == 0) {
-        for (int i = 0; i < height; i++)
+        for (int i = 0; i < indent; i++)
             cout << "\t";
         print();
+        return;
     }
 
     if (leftNode != NULL)
-        leftNode->printFloor(floor-1, height);
-    if (rightNode != NULL)
-        rightNode->printFloor(floor-1, height);
+        leftNode->printFloor(floor-1, indent);
+    else {
+        for (int i = 0; i < indent; i++)
+            cout << "\t";
+    }
+        
+    if (rightNode != NULL) {
+        rightNode->printFloor(floor-1, indent);
+    }
+    else {
+        for (int i = 0; i < indent; i++)
+            cout << "\t";
+    }
 }
 
 void ASTNode::prettyPrint() {
     int height = getHeight();
     for (int i = 0; i < height; i++) {
-        printFloor(i, height-i);
+        printFloor(i, pow(2, height-i));
         cout << endl;
     }
 }

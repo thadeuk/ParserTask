@@ -31,7 +31,7 @@ protected:
 private:
     // These are used for prettyPrint
     int getHeight();
-    void printFloor(int floor, int height);
+    void printFloor(int floor, int indent);
 };
 
 class InternalNode : public ASTNode
