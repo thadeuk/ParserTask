@@ -6,7 +6,6 @@
 #include <iostream>
 #include "interpreter.h"
 
-
 #define ASSERT_EQUAL(x,y) { if (x != y) std::cout << __FUNCTION__ << " failed on line " << __LINE__ << std::endl << "Expected " << x << ". Actual " << y << "." << std::endl; return; }
 
 void ShouldUseOperators()
@@ -52,10 +51,28 @@ void ShouldGiveMultiplicationAndDivisionPreference()
     ASSERT_EQUAL(-23, result);
 }
 
+void InputExample1()
+{
+    Interpreter interpreter;
+    double result = interpreter.execute("(4 + 5 * (7 - 3)) - 2");
+    ASSERT_EQUAL(23, result);
+}
+
+void InputExample2()
+{
+    Interpreter interpreter;
+    double result = interpreter.execute("4+5+7/2");
+    ASSERT_EQUAL(13, result);
+}
+
 int
 main()
 {
     ShouldUseOperators();
     ShouldGiveParenthesisPreference();
     ShouldGiveMultiplicationAndDivisionPreference();
+    InputExample1();
+    InputExample2();
+    //InputExample3();
+    //InputExample4();
 }

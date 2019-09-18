@@ -14,9 +14,9 @@ double Interpreter::execute(string expression)
 {
     Parser parser(expression);
     unique_ptr<ASTNode> node = parser.parse();
-    if (!parser.error) 
+    if (!parser.error()) 
     {
-        node->prettyPrint();
+        //node->prettyPrint();
         double result = node->evaluate();
         return result;
     }

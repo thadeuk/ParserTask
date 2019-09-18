@@ -16,6 +16,12 @@ Parser::Parser(string expression)
    this->currentTokenIdx = -1;
 }
 
+unique_ptr<ASTNode> Parser::parse()
+{
+    nextToken();
+    return expr();
+}
+
 void Parser::nextToken()
 {
     this->currentTokenIdx++;
@@ -29,10 +35,9 @@ void Parser::nextToken()
     }
 }
 
-unique_ptr<ASTNode> Parser::parse()
+bool Parser::error()
 {
-    nextToken();
-    return expr();
+    return this->_error;
 }
 
 TokenType Parser::getCurrentTokenType()
@@ -67,13 +72,16 @@ void Parser::assertTokenType(TokenType tokenType)
     if (this->getCurrentTokenType() != tokenType)
     {
         cout << "Could not parse expression" << endl; 
-        error = true;
+        this->_error = true;
     }
 }
 
 unique_ptr<ASTNode> Parser::expr()
 {
     unique_ptr<ASTNode> node = term();
+    if (this->_error)
+        return NULL;
+
     while (getCurrentTokenType() == TokenType::plusMinusOperator)
     {
         char value = this->currentToken;
@@ -86,6 +94,9 @@ unique_ptr<ASTNode> Parser::expr()
 unique_ptr<ASTNode> Parser::term()
 {
     unique_ptr<ASTNode> node = factor();
+    if (this->_error)
+        return NULL;
+
     while (getCurrentTokenType() == TokenType::multDivOperator)
     {
         char value = this->currentToken;
@@ -103,13 +114,13 @@ unique_ptr<ASTNode> Parser::factor()
         return unique_ptr<LeafNode>(new LeafNode(value));
     }
 
-    nextToken();
     assertTokenType(TokenType::leftParen);
+    nextToken();
 
     unique_ptr<ASTNode> node = expr();
 
-    nextToken();
     assertTokenType(TokenType::rightParen);
+    nextToken();
 
     return node;
 }
