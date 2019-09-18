@@ -1,2 +1,9 @@
 # ParserTask
-Pure c++11 parser
+C++11 parser
+
+usage:
+make
+./interpreter (-v)
+
+run tests:
+make test
